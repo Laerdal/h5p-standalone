@@ -942,8 +942,13 @@ H5P.newRunnable = function (library, contentId, $attachTo, skipResize, extras) {
 
   // Makes all H5P libraries extend H5P.ContentType:
   var standalone = extras.standalone || false;
-  // This order makes it possible for an H5P library to override H5P.ContentType functions!
-  constructor.prototype = H5P.jQuery.extend({}, H5P.ContentType(standalone).prototype, constructor.prototype);
+
+  // TODO: This is the temporary fix to avoid breaking of latest version of 
+  // dialogcard on Adapt and need to address in future with proper solution.
+  if (nameSplit[1] !== 'Dialogcards') {
+    // This order makes it possible for an H5P library to override H5P.ContentType functions!
+    constructor.prototype = H5P.jQuery.extend({}, H5P.ContentType(standalone).prototype, constructor.prototype);
+  }
 
   var instance;
   // Some old library versions have their own custom third parameter.
